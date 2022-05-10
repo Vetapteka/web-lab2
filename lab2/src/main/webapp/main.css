@@ -33,13 +33,15 @@ h2 {
 
 input[type=text], .submit {
     width: 70%;
-    background: white;
+    background: transparent;
     padding: 40px 40px 40px 100px;
     border-radius: 20px;
     border: none;
     color: black;
     font-family: "DejaVu Sans Mono", serif;
     font-size: 24px;
+    cursor: text;
+
 }
 
 .submit {
@@ -47,6 +49,7 @@ input[type=text], .submit {
     width: 95%;
     text-align: center;
     cursor: pointer;
+    background-color: white;
 }
 
 input[class=r-field] {
@@ -59,12 +62,11 @@ input[class=y-field] {
     background-repeat: no-repeat;
 }
 
-input[type=text]:focus {
-    background-color: palegoldenrod;
-}
+/*input[type=text]:focus {*/
+/*}*/
 
 ::placeholder {
-    color: white;
+    /*color: white;*/
     font-family: "DejaVu Sans Mono", serif;
     font-size: 24px;
 

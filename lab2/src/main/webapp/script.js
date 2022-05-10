@@ -9,14 +9,19 @@ let showError = function (val, text) {
     error.style.fontFamily = "DejaVu Sans Mono";
     error.innerHTML = text
     val.insertAdjacentElement("afterend", error)
+
+    // let previosBackgroundColor =
     val.style.backgroundColor = "indianred"
+    setTimeout(function () {
+        val.style.backgroundColor = "transparent"
+    }, 1000)
 
     // document.getElementById("logo").src = "images/fail.jpg"
 }
 
-let removeError = function () {
+let removeError = function (val) {
     // document.getElementById("logo").src = "images/logo.jpg"
-    let errors = form.querySelectorAll('.error')
+    let errors = val.querySelectorAll('.error')
     for (let i = 0; i < errors.length; i++) {
         errors[i].remove()
     }
@@ -40,11 +45,23 @@ let check = function (val, a, b) {
 }
 
 
+let graph = document.querySelector('.graph');
+graph.addEventListener("click", function () {
+    removeError(graph.parentNode);
+    if (r.value) {
+        alert("r: " + r.value);
+    } else {
+        showError(graph, "set R please!")
+    }
+});
+
 form.addEventListener('submit', function (event) {
     event.preventDefault()
-    removeError()
-    let isValidR = check(r, 1, 4)
+    removeError(form)
+
     let isValidY = check(y, -3, 3)
+    let isValidR = check(r, 1, 4)
+
 
     if (isValidR && isValidY) {
         let x = document.querySelector('input[name="x"]:checked')

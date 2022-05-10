@@ -18,19 +18,34 @@
 
         <tr>
             <td>
-                <div class="element">
-                    <svg height="375" width="500" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none">
-                        <polygon points="0,250 250,250 250,375"
-                                 style="fill:yellowgreen;stroke:purple;stroke-width:1"></polygon>
-                        <polygon points="250,0 250, 250 125, 250 125, 0"
-                                 style="fill:plum;stroke:purple;stroke-width:1"></polygon>
-                        <path d="M 250 250 L 375 250 Q 355 355 250 375  Z"
-                              style="fill:yellow;stroke:purple;stroke-width:1"
-                        ></path>
-                    </svg>
+                <div class="graph-with-error">
+                    <div class="element graph">
+                        <svg height="500" width="500" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none">
+                            <polygon points="0,250 250,250 250,375"
+                                     style="fill:yellowgreen;stroke:purple;stroke-width:1"></polygon>
+                            <polygon points="250,0 250, 250 125, 250 125, 0"
+                                     style="fill:plum;stroke:purple;stroke-width:1"></polygon>
+                            <path d="M 250 250 L 375 250 Q 355 355 250 375  Z"
+                                  style="fill:yellow;stroke:purple;stroke-width:1"
+                            ></path>
+
+                            <line stroke="purple"
+                                  x1="0" x2="500"
+                                  y1="250" y2="250"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                            ></line>
+
+
+                            <line stroke="purple"
+                                  x1="250" x2="250"
+                                  y1="0" y2="500"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                            ></line>
+                        </svg>
+                    </div>
                 </div>
-
-
             </td>
             <td colspan="3" rowspan="2">
                 <div class=table-res>
