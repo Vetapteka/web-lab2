@@ -48,7 +48,6 @@ let check = function (val, a, b) {
 
 let graph = document.querySelector('.graph');
 graph.addEventListener("click", function (e) {
-
     let graphContent = document.querySelector('.graph-content')
     removeError(graph.parentNode);
 
@@ -62,7 +61,17 @@ graph.addEventListener("click", function (e) {
         let width = 250
         let x = (e.pageX - left - width) / width * r.value
         let y = (width - e.pageY + top) / width * r.value
-        alert("coor : " + x + "  " + y);
+
+        let circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle')
+        circle.setAttributeNS(null, 'cx', (e.pageX - left).toString());
+        circle.setAttributeNS(null, 'cy', (e.pageY - top).toString());
+        circle.setAttributeNS(null, 'r', '3');
+        circle.setAttributeNS(null, 'stroke', 'purple');
+        circle.setAttributeNS(null, 'stroke-width', '5');
+        circle.setAttributeNS(null, 'fill-opacity', '0');
+
+        graphContent.appendChild(circle);
+
 
         $.ajax({
             type: 'GET',

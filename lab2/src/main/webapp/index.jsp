@@ -1,4 +1,8 @@
 <%@ page import="java.util.Calendar" %>
+<%@ page import="com.vetka.lab2.AreaCheckServlet" %>
+<%@ page import="com.vetka.lab2.Point" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -19,8 +23,9 @@
         <tr>
             <td>
                 <div class="graph-with-error">
-                    <div class="element graph" >
-                        <svg class="graph-content" height="500" width="500" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none">
+                    <div class="element graph">
+                        <svg class="graph-content" height="500" width="500" xmlns="http://www.w3.org/2000/svg"
+                             style="pointer-events: none">
                             <polygon points="0,250 250,250 250,375"
                                      style="fill:yellowgreen;stroke:purple;stroke-width:1"></polygon>
                             <polygon points="250,0 250, 250 125, 250 125, 0"
@@ -35,33 +40,29 @@
                                   stroke-width="2"
                                   stroke-linecap="round"
                             ></line>
-                            <%--убрать--%>
-                            <line stroke="purple"
-                                  x1="0" x2="0"
-                                  y1="0" y2="500"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                            ></line>
-
-                            <line stroke="purple"
-                                  x1="0" x2="500"
-                                  y1="0" y2="0"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                            ></line>
-
-
                             <line stroke="purple"
                                   x1="250" x2="250"
                                   y1="0" y2="500"
                                   stroke-width="2"
                                   stroke-linecap="round"
                             ></line>
+
+                            <% if (session.getAttribute(AreaCheckServlet.ATTRIBUTE_POINTS) != null) {
+                                for (Point p : (ArrayList<Point>) session.getAttribute(AreaCheckServlet.ATTRIBUTE_POINTS)) { %>
+                            <circle cx="<%=p.getX() * 250/p.getR() + 250%>" cy="<%=-p.getY() * 250/p.getR() + 250%>"
+                                    r="3"
+                                    stroke="purple" fill-opacity="0" stroke-width="5"
+                            ></circle>
+                            <%
+                                    }
+                                }
+                            %>
                         </svg>
                     </div>
                 </div>
             </td>
-            <td colspan="3" rowspan="2">
+            <td colspan=" 3
+                            " rowspan="2">
                 <div class=table-res>
                     <table>
                         <thead>
@@ -80,7 +81,27 @@
                         </tr>
                         </thead>
                         <tbody id="table-place">
+                        <% if (session.getAttribute(AreaCheckServlet.ATTRIBUTE_POINTS) != null) {
+                            for (Point p : (ArrayList<Point>) session.getAttribute(AreaCheckServlet.ATTRIBUTE_POINTS)) { %>
+                        <tr>
+                            <% DecimalFormat df = new DecimalFormat("#.###");
 
+                            %>
+                            <td><h2><%=df.format(p.getX())%>
+                            </h2></td>
+                            <td><h2><%=df.format(p.getY())%>
+                            </h2></td>
+                            <td><h2><%=df.format(p.getR())%>
+                            </h2></td>
+                            <td><h2><%=p.getResult()%>
+                            </h2></td>
+                            <td><h2><%=p.getData()%>
+                            </h2></td>
+                            <td><h2><%=p.getTime()%>
+                            </h2></td>
+                        </tr>
+                        <% }
+                        } %>
                         </tbody>
                     </table>
                 </div>

@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
+import static com.vetka.lab2.AreaCheckServlet.ATTRIBUTE_POINTS;
+
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class ControllerServlet extends HttpServlet {
 
@@ -19,8 +21,9 @@ public class ControllerServlet extends HttpServlet {
         boolean isAllParams = params.containsKey("x") && params.containsKey("y") && params.containsKey("r") && (params.size() == 3);
 
         if (isAllParams) {
-            if (isValidParams(params))
+            if (isValidParams(params)) {
                 request.getRequestDispatcher("/area-check").forward(request, response);
+            }
         } else {
             PrintWriter out = response.getWriter();
             out.print("<tr<td colspan = " + 6 + "><h2>invalid request</h2></tr>");
