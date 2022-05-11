@@ -93,7 +93,7 @@
                         <div class="element" id="generateRadioBtn">
                             <img src="images/icon-x.png" alt="x">
                             <script>
-                                for (let i = -2; i < 2; i += 0.5) {
+                                for (let i = -2; i < 2.5; i += 0.5) {
                                     let textNode = document.createTextNode(String(i));
 
                                     let btn = document.createElement("input");

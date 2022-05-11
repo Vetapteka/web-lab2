@@ -3,6 +3,7 @@ let submit = form.querySelector('.submit')
 let r = form.querySelector('.r-field')
 let y = form.querySelector('.y-field')
 
+
 let showError = function (val, text) {
     removeError(val.parentNode)
     let error = document.createElement('div')
@@ -45,20 +46,6 @@ let check = function (val, a, b) {
     return true
 }
 
-
-// получаем координаты элемента в контексте документа
-function getCoords(elem) {
-    let box = elem.getBoundingClientRect();
-
-    return {
-        top: box.top + window.pageYOffset,
-        right: box.right + window.pageXOffset,
-        bottom: box.bottom + window.pageYOffset,
-        left: box.left + window.pageXOffset
-    };
-}
-
-//если установлено валидное значение для R, то посчитать точку и отправить запрос
 let graph = document.querySelector('.graph');
 graph.addEventListener("click", function (e) {
 
@@ -76,8 +63,20 @@ graph.addEventListener("click", function (e) {
         let x = (e.pageX - left - width) / width * r.value
         let y = (width - e.pageY + top) / width * r.value
         alert("coor : " + x + "  " + y);
+
+        $.ajax({
+            type: 'GET',
+            url: "hello-servlet",
+            data: {x: x, y: y, r: r.value},
+
+            success: function (response) {
+                document.getElementById("table-place").innerHTML += response;
+                // window.sessionStorage.setItem("stored", document.getElementById("table-place").innerHTML);
+            },
+        });
     }
 });
+
 
 form.addEventListener('submit', function (event) {
     event.preventDefault()
@@ -93,37 +92,15 @@ form.addEventListener('submit', function (event) {
         // form.submit()
 
         $.ajax({
-            type: $(this).attr('method'),
-            url: $(this).attr('action'),
-            data: {x: x.value, y: y.value, r: r.value},
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: {x: x.value, y: y.value, r: r.value},
 
-            success: function (response) {
-                document.getElementById("table-place").innerHTML += response;
-                // window.sessionStorage.setItem("stored", document.getElementById("table-place").innerHTML);
-            },
-
-
-            error: function (jqXHR, exception) {
-                let msg = '';
-                if (jqXHR.status === 0) {
-                    msg = 'Not connected.\n Verify Network.';
-                } else if (jqXHR.status === 404) {
-                    msg = 'Requested page not found. [404]';
-                } else if (jqXHR.status === 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (exception === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (exception === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                }
-
-                $('#post').html(msg);
+                success: function (response) {
+                    document.getElementById("table-place").innerHTML += response;
+                    // window.sessionStorage.setItem("stored", document.getElementById("table-place").innerHTML);
+                },
             }
-        });
-
+        );
     }
-})
+});
