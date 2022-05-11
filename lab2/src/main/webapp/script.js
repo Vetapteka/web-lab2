@@ -4,6 +4,7 @@ let r = form.querySelector('.r-field')
 let y = form.querySelector('.y-field')
 
 let showError = function (val, text) {
+    removeError(val.parentNode)
     let error = document.createElement('div')
     error.className = 'error'
     error.style.fontFamily = "DejaVu Sans Mono";
@@ -36,7 +37,7 @@ let check = function (val, a, b) {
         showError(val, 'must be a number')
         return false
     }
-    if (val.value <= a || val.value >= b) {
+    if (val.value < a || val.value > b) {
         showError(val, 'must be in range: (' + a + '; ' + b + ')')
         return false
     }
@@ -45,13 +46,36 @@ let check = function (val, a, b) {
 }
 
 
+// получаем координаты элемента в контексте документа
+function getCoords(elem) {
+    let box = elem.getBoundingClientRect();
+
+    return {
+        top: box.top + window.pageYOffset,
+        right: box.right + window.pageXOffset,
+        bottom: box.bottom + window.pageYOffset,
+        left: box.left + window.pageXOffset
+    };
+}
+
+//если установлено валидное значение для R, то посчитать точку и отправить запрос
 let graph = document.querySelector('.graph');
-graph.addEventListener("click", function () {
+graph.addEventListener("click", function (e) {
+
+    let graphContent = document.querySelector('.graph-content')
     removeError(graph.parentNode);
-    if (r.value) {
-        alert("r: " + r.value);
-    } else {
+
+    let isValidR = check(r, 1, 4)
+
+    if (!isValidR) {
         showError(graph, "set R please!")
+    } else {
+        let top = graphContent.getBoundingClientRect().top + window.pageYOffset;
+        let left = graphContent.getBoundingClientRect().left + window.pageXOffset;
+        let width = 250
+        let x = (e.pageX - left - width) / width * r.value
+        let y = (width - e.pageY + top) / width * r.value
+        alert("coor : " + x + "  " + y);
     }
 });
 

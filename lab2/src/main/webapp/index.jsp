@@ -19,8 +19,8 @@
         <tr>
             <td>
                 <div class="graph-with-error">
-                    <div class="element graph">
-                        <svg height="500" width="500" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none">
+                    <div class="element graph" >
+                        <svg class="graph-content" height="500" width="500" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none">
                             <polygon points="0,250 250,250 250,375"
                                      style="fill:yellowgreen;stroke:purple;stroke-width:1"></polygon>
                             <polygon points="250,0 250, 250 125, 250 125, 0"
@@ -32,6 +32,20 @@
                             <line stroke="purple"
                                   x1="0" x2="500"
                                   y1="250" y2="250"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                            ></line>
+                            <%--убрать--%>
+                            <line stroke="purple"
+                                  x1="0" x2="0"
+                                  y1="0" y2="500"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                            ></line>
+
+                            <line stroke="purple"
+                                  x1="0" x2="500"
+                                  y1="0" y2="0"
                                   stroke-width="2"
                                   stroke-linecap="round"
                             ></line>
@@ -101,13 +115,13 @@
                         <div class="element">
                             <label>
                                 <input type="text" class="y-field" name="y" maxlength="8"
-                                       placeholder="number (-3 ; 3)">
+                                       placeholder="number [-3 ; 3]">
                             </label>
                         </div>
                         <div class="element">
                             <label>
                                 <input type="text" class="r-field" name="r" maxlength="8"
-                                       placeholder="number (1 ; 4)">
+                                       placeholder="number [1 ; 4]">
                             </label>
                         </div>
                         <div class="element">
